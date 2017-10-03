@@ -1,0 +1,7 @@
+psycopg2
+Pillow
+Celery
+flower
+Django
+django-paypal
+WeasyPrint

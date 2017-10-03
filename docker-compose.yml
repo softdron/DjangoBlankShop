@@ -1,0 +1,28 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - '8000:8000'
+      - '5555:5555'
+    depends_on:
+      - db
+  rabbitmq:
+    image: 'bitnami/rabbitmq:latest'
+    labels:
+      kompose.service.type: nodeport
+    ports:
+      - '4369:4369'
+      - '5672:5672'
+      - '25672:25672'
+      - '15672:15672'
+    volumes:
+      - 'rabbitmq_data:/bitnami'
+volumes:
+  rabbitmq_data:
+    driver: local
